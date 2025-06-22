@@ -4,6 +4,9 @@ export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+        <div className="p-4 bg-green-100 border border-green-400 rounded text-green-800">
+          Tailwind CSS は正常に動作しています！
+        </div>        
         <Image
           className="dark:invert"
           src="/next.svg"
