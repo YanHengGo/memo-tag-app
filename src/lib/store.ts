@@ -1,22 +1,34 @@
+// lib/store.ts
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 type Memo = {
-  id: number;
+  id: string;
   content: string;
 };
 
-type Store = {
+interface MemoState {
   memos: Memo[];
   addMemo: (content: string) => void;
-};
+}
 
-export const useMemoStore = create<Store>((set) => ({
-  memos: [],
-  addMemo: (content) =>
-    set((state) => ({
-      memos: [
-        ...state.memos,
-        { id: Date.now(), content },
-      ],
-    })),
-}));
+export const useMemoStore = create<MemoState>()(
+  persist(
+    (set) => ({
+      memos: [],
+      addMemo: (content) =>
+        set((state) => ({
+          memos: [
+            ...state.memos,
+            {
+              id: Date.now().toString(), // 一意なID（timestamp）
+              content,
+            },
+          ],
+        })),
+    }),
+    {
+      name: 'memo-storage',
+    }
+  )
+);
